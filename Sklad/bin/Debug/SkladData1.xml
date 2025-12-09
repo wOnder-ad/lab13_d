@@ -1,0 +1,99 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="SkladData" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="SkladData">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="N_pp" type="xs:int" minOccurs="0" />
+                <xs:element name="SkladID" type="xs:string" minOccurs="0" />
+                <xs:element name="Grupa" type="xs:string" minOccurs="0" />
+                <xs:element name="Nazva" type="xs:string" minOccurs="0" />
+                <xs:element name="Vyrobnyk" type="xs:string" minOccurs="0" />
+                <xs:element name="Postachalnyk" type="xs:string" minOccurs="0" />
+                <xs:element name="OdVymiru" type="xs:string" minOccurs="0" />
+                <xs:element name="Cina" type="xs:decimal" minOccurs="0" />
+                <xs:element name="Valuta" type="xs:string" minOccurs="0" />
+                <xs:element name="Kilkist" type="xs:int" minOccurs="0" />
+                <xs:element name="Vartist" type="xs:decimal" minOccurs="0" />
+                <xs:element name="Date" type="xs:dateTime" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <SkladData>
+    <N_pp>1</N_pp>
+    <SkladID>Склад №1 (Основний)</SkladID>
+    <Grupa>Книги</Grupa>
+    <Nazva>Гарі</Nazva>
+    <Vyrobnyk>Україна</Vyrobnyk>
+    <Postachalnyk>Global Trade</Postachalnyk>
+    <OdVymiru>шт.</OdVymiru>
+    <Cina>200</Cina>
+    <Valuta>грн.</Valuta>
+    <Kilkist>500</Kilkist>
+    <Vartist>100000</Vartist>
+    <Date>2025-12-08T23:31:34+02:00</Date>
+  </SkladData>
+  <SkladData>
+    <N_pp>2</N_pp>
+    <SkladID>Склад №1 (Основний)</SkladID>
+    <Grupa>Книги</Grupa>
+    <Nazva>Поттер</Nazva>
+    <Vyrobnyk>Польща</Vyrobnyk>
+    <Postachalnyk>ПП 'ПостачЗбут'</Postachalnyk>
+    <OdVymiru>шт.</OdVymiru>
+    <Cina>50</Cina>
+    <Valuta>євро</Valuta>
+    <Kilkist>100</Kilkist>
+    <Vartist>5000</Vartist>
+    <Date>2025-12-09T23:32:35+02:00</Date>
+  </SkladData>
+  <SkladData>
+    <N_pp>3</N_pp>
+    <SkladID>Склад №1 (Основний)</SkladID>
+    <Grupa>Електроніка</Grupa>
+    <Nazva>Айфон</Nazva>
+    <Vyrobnyk>США</Vyrobnyk>
+    <Postachalnyk>ПП 'ПостачЗбут'</Postachalnyk>
+    <OdVymiru>ящик</OdVymiru>
+    <Cina>10000</Cina>
+    <Valuta>дол.</Valuta>
+    <Kilkist>10</Kilkist>
+    <Vartist>100000</Vartist>
+    <Date>2025-11-14T23:32:35+02:00</Date>
+  </SkladData>
+  <SkladData>
+    <N_pp>4</N_pp>
+    <SkladID>Склад №1 (Основний)</SkladID>
+    <Grupa>Меблі</Grupa>
+    <Nazva>Стіл</Nazva>
+    <Vyrobnyk>США</Vyrobnyk>
+    <Postachalnyk>ПП 'ПостачЗбут'</Postachalnyk>
+    <OdVymiru>шт.</OdVymiru>
+    <Cina>15</Cina>
+    <Valuta>дол.</Valuta>
+    <Kilkist>1000</Kilkist>
+    <Vartist>15000</Vartist>
+    <Date>2025-10-14T23:32:35+03:00</Date>
+  </SkladData>
+  <SkladData>
+    <N_pp>5</N_pp>
+    <SkladID>Склад №2 (Резервний)</SkladID>
+    <Grupa>Меблі</Grupa>
+    <Nazva>Стіл</Nazva>
+    <Vyrobnyk>США</Vyrobnyk>
+    <Postachalnyk>ПП 'ПостачЗбут'</Postachalnyk>
+    <OdVymiru>шт.</OdVymiru>
+    <Cina>15</Cina>
+    <Valuta>дол.</Valuta>
+    <Kilkist>1000</Kilkist>
+    <Vartist>15000</Vartist>
+    <Date>2025-12-09T23:35:05.0926568+02:00</Date>
+  </SkladData>
+</NewDataSet>

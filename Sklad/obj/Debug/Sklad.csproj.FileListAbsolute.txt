@@ -1,0 +1,11 @@
+D:\University\WorkSpace\CPP\Lab13\Sklad\Sklad\obj\Debug\Sklad.csproj.AssemblyReference.cache
+D:\University\WorkSpace\CPP\Lab13\Sklad\Sklad\obj\Debug\SkladProject.Form1.resources
+D:\University\WorkSpace\CPP\Lab13\Sklad\Sklad\obj\Debug\Sklad.Properties.Resources.resources
+D:\University\WorkSpace\CPP\Lab13\Sklad\Sklad\obj\Debug\Sklad.csproj.GenerateResource.cache
+D:\University\WorkSpace\CPP\Lab13\Sklad\Sklad\obj\Debug\Sklad.csproj.CoreCompileInputs.cache
+D:\University\WorkSpace\CPP\Lab13\Sklad\Sklad\bin\Debug\Sklad.exe.config
+D:\University\WorkSpace\CPP\Lab13\Sklad\Sklad\bin\Debug\Sklad.exe
+D:\University\WorkSpace\CPP\Lab13\Sklad\Sklad\bin\Debug\Sklad.pdb
+D:\University\WorkSpace\CPP\Lab13\Sklad\Sklad\obj\Debug\Sklad.exe
+D:\University\WorkSpace\CPP\Lab13\Sklad\Sklad\obj\Debug\Sklad.pdb
+D:\University\WorkSpace\CPP\Lab13\Sklad\Sklad\obj\Debug\Sklad.exe.config
