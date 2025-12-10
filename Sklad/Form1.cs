@@ -12,20 +12,21 @@ namespace SkladProject
         private TSklad mySklad;
         private DateTimePicker dtp;
 
+        // Елементи пошуку (які були в Designer, але ми їх використовуємо тут)
+        // У цьому коді ми покладаємося на те, що InitSearchBox додасть їх програмно,
+        // АБО ви можете додати їх через Designer. 
+        // Нижче код розрахований на те, що елементи вже створені в Designer (Form1.Designer.cs), 
+        // але ми ініціалізуємо список полів у конструкторі.
+
         public Form1()
         {
-            // Ініціалізація компонентів із дизайнера (Form1.Designer.cs)
             InitializeComponent();
 
             mySklad = new TSklad();
 
             // --- ПІДКЛЮЧЕННЯ ПОДІЙ ---
-            // Оскільки дизайн перенесено, підключаємо логіку до кнопок вручну
-
-            // Кнопка додавання
             btnAdd.Click += BtnAdd_Click;
 
-            // Головне меню
             miSave.Click += (s, e) => SaveDataWithDialog();
             miLoad.Click += (s, e) => LoadDataWithDialog();
             miPrint.Click += MenuPrint_Click;
@@ -37,23 +38,127 @@ namespace SkladProject
 
             miStats.Click += MenuStats_Click;
 
-            // Панель інструментів (іконки)
             tsbSave.Click += (s, e) => SaveDataWithDialog();
             tsbStats.Click += MenuStats_Click;
 
-            // Дерево складів
             treeWarehouses.AfterSelect += TreeWarehouses_AfterSelect;
 
-            // Ініціалізація даних та прив'язок
             InitDataBindings();
-
-            // Налаштування календаря та подій таблиці
             InitGridCalendar();
+
+            // Налаштування пошуку (заповнення списку та події)
+            SetupSearchLogic();
+        }
+
+        private void SetupSearchLogic()
+        {
+            // Очищаємо список, щоб не дублювати, якщо він був заповнений в Designer
+            tscbSearchField.Items.Clear();
+
+            // Додаємо нові поля для пошуку
+            tscbSearchField.Items.AddRange(new object[] {
+                "Всюди",
+                "Назва",
+                "Група",
+                "Виробник",
+                "Постачальник",
+                "Ціна",
+                "Кількість",
+                "Валюта",
+                "Од. виміру", // НОВЕ
+                "Дата"        // НОВЕ
+            });
+
+            tscbSearchField.SelectedIndex = 0; // "Всюди" за замовчуванням
+
+            // Підключаємо події (якщо вони ще не підключені в Designer)
+            tstbSearch.TextChanged += (s, e) => UpdateGlobalFilter();
+            tscbSearchField.SelectedIndexChanged += (s, e) => UpdateGlobalFilter();
+        }
+
+        // --- ОНОВЛЕНА ЛОГІКА ФІЛЬТРАЦІЇ ---
+        private void UpdateGlobalFilter()
+        {
+            string filter = "";
+
+            // 1. Фільтр по Складу
+            if (treeWarehouses.SelectedNode != null && treeWarehouses.SelectedNode.Text != "Всі склади")
+            {
+                string sklad = treeWarehouses.SelectedNode.Text.Replace("'", "''");
+                filter = $"SkladID = '{sklad}'";
+            }
+
+            // 2. Фільтр по Тексту
+            string searchText = tstbSearch.Text.Trim().Replace("'", "''");
+            string selectedField = tscbSearchField.SelectedItem?.ToString() ?? "Всюди";
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                if (filter.Length > 0) filter += " AND ";
+
+                switch (selectedField)
+                {
+                    case "Всюди":
+                        filter += "(" +
+                                  $"Nazva LIKE '%{searchText}%' OR " +
+                                  $"Grupa LIKE '%{searchText}%' OR " +
+                                  $"Vyrobnyk LIKE '%{searchText}%' OR " +
+                                  $"Postachalnyk LIKE '%{searchText}%' OR " +
+                                  $"Valuta LIKE '%{searchText}%' OR " +
+                                  $"OdVymiru LIKE '%{searchText}%' OR " + // Пошук по од. вим.
+                                  $"Convert(Cina, 'System.String') LIKE '%{searchText}%' OR " +
+                                  $"Convert(Kilkist, 'System.String') LIKE '%{searchText}%' OR " +
+                                  $"Convert(Date, 'System.String') LIKE '%{searchText}%'" + // Пошук по даті
+                                  ")";
+                        break;
+
+                    case "Назва":
+                        filter += $"Nazva LIKE '%{searchText}%'";
+                        break;
+                    case "Група":
+                        filter += $"Grupa LIKE '%{searchText}%'";
+                        break;
+                    case "Виробник":
+                        filter += $"Vyrobnyk LIKE '%{searchText}%'";
+                        break;
+                    case "Постачальник":
+                        filter += $"Postachalnyk LIKE '%{searchText}%'";
+                        break;
+                    case "Ціна":
+                        filter += $"Convert(Cina, 'System.String') LIKE '%{searchText}%'";
+                        break;
+                    case "Кількість":
+                        filter += $"Convert(Kilkist, 'System.String') LIKE '%{searchText}%'";
+                        break;
+                    case "Валюта":
+                        filter += $"Valuta LIKE '%{searchText}%'";
+                        break;
+
+                    // --- НОВІ КЕЙСИ ---
+                    case "Од. виміру":
+                        filter += $"OdVymiru LIKE '%{searchText}%'";
+                        break;
+                    case "Дата":
+                        // Convert перетворює дату в рядок (наприклад "10.12.2025 14:00:00")
+                        // Це дозволяє шукати "2025" або "10.12"
+                        filter += $"Convert(Date, 'System.String') LIKE '%{searchText}%'";
+                        break;
+                }
+            }
+
+            try
+            {
+                mySklad.ApplyFilter(filter);
+                UpdateSums();
+            }
+            catch
+            {
+                // Ігноруємо помилки (наприклад, при введенні спецсимволів '[')
+            }
         }
 
         private void InitGridCalendar()
         {
-            // Створення невидимого календаря для редагування дат
             dtp = new DateTimePicker();
             dtp.Format = DateTimePickerFormat.Short;
             dtp.Visible = false;
@@ -68,23 +173,19 @@ namespace SkladProject
             };
             dgSklad.Controls.Add(dtp);
 
-            // Підписка на події таблиці
             dgSklad.CellClick += DgSklad_CellClick;
             dgSklad.Scroll += (s, e) => dtp.Visible = false;
             dgSklad.ColumnWidthChanged += (s, e) => dtp.Visible = false;
 
-            // Логіка перерахунків та валідації
             dgSklad.CellValueChanged += DgSklad_CellValueChanged;
             dgSklad.CurrentCellDirtyStateChanged += DgSklad_CurrentCellDirtyStateChanged;
             dgSklad.CellValidating += DgSklad_CellValidating;
             dgSklad.DataError += DgSklad_DataError;
 
-            // Дозволяємо додавати рядки через таблицю і обробляємо автозаповнення
             dgSklad.AllowUserToAddRows = false;
             dgSklad.DefaultValuesNeeded += DgSklad_DefaultValuesNeeded;
         }
 
-        // Налаштування прив'язки даних до контролів
         private void InitDataBindings()
         {
             BindCombo(cbGrupa, mySklad.DovGrupa, "Grupa");
@@ -96,14 +197,12 @@ namespace SkladProject
             SetupGridColumns();
             dgSklad.DataSource = mySklad.SkladView;
 
-            // Ініціалізація дерева складів
             treeWarehouses.Nodes.Add("Всі склади");
             treeWarehouses.Nodes[0].Nodes.Add("Склад №1 (Основний)");
             treeWarehouses.Nodes[0].Nodes.Add("Склад №2 (Резервний)");
             treeWarehouses.ExpandAll();
         }
 
-        // Універсальний метод прив'язки ComboBox до DataTable
         private void BindCombo(ComboBox cb, DataTable dt, string col)
         {
             cb.DataSource = dt;
@@ -111,7 +210,6 @@ namespace SkladProject
             cb.ValueMember = col;
         }
 
-        // Налаштування колонок DataGridView
         private void SetupGridColumns()
         {
             dgSklad.Columns.Clear();
@@ -128,12 +226,10 @@ namespace SkladProject
             AddComboCol("Valuta", "Валюта", mySklad.DovValuta, "Valuta");
             AddTextCol("Kilkist", "К-сть");
 
-            // Колонка вартості доступна тільки для читання
             AddTextCol("Vartist", "Вартість");
             dgSklad.Columns["Vartist"].ReadOnly = true;
             dgSklad.Columns["Vartist"].DefaultCellStyle.BackColor = Color.FromArgb(240, 240, 240);
 
-            // Колонка дати (тільки для читання, редагується через календар)
             AddTextCol("Date", "Дата");
             dgSklad.Columns["Date"].ReadOnly = true;
         }
@@ -144,6 +240,7 @@ namespace SkladProject
             col.DataPropertyName = dataProp;
             col.Name = dataProp;
             col.HeaderText = header;
+            col.SortMode = DataGridViewColumnSortMode.Automatic;
             dgSklad.Columns.Add(col);
         }
 
@@ -157,6 +254,7 @@ namespace SkladProject
             col.DisplayMember = display;
             col.ValueMember = display;
             col.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
+            col.SortMode = DataGridViewColumnSortMode.Automatic;
             dgSklad.Columns.Add(col);
         }
 
@@ -193,7 +291,6 @@ namespace SkladProject
 
         private void DgSklad_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
-            // Автозаповнення прихованих полів при додаванні через таблицю
             string selectedSklad = treeWarehouses.SelectedNode != null ? treeWarehouses.SelectedNode.Text : "Склад №1 (Основний)";
             if (selectedSklad == "Всі склади") selectedSklad = "Склад №1 (Основний)";
 
@@ -211,15 +308,7 @@ namespace SkladProject
 
         private void TreeWarehouses_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (e.Node.Text == "Всі склади")
-            {
-                mySklad.ApplyFilter("");
-            }
-            else
-            {
-                mySklad.ApplyFilter($"SkladID = '{e.Node.Text}'");
-            }
-            UpdateSums();
+            UpdateGlobalFilter();
         }
 
         private void MenuEditDict_Click(object sender, EventArgs e)
@@ -279,6 +368,7 @@ namespace SkladProject
                     string valuta = row["Valuta"]?.ToString() ?? "";
                     string kilk = row["Kilkist"]?.ToString() ?? "0";
                     string od = row["OdVymiru"]?.ToString() ?? "";
+                    string vartist1 = row["Vartist"]?.ToString() ?? "0";
 
                     decimal vartist = 0;
                     decimal.TryParse(row["Vartist"].ToString(), out vartist);
@@ -287,7 +377,7 @@ namespace SkladProject
                     else if (valuta == "євро") totalSumUAH += vartist * rateEUR;
                     else totalSumUAH += vartist;
 
-                    string lineText = $"{nazva} ({grupa}) — {cina} {valuta} x {kilk} {od}";
+                    string lineText = $"{nazva} ({grupa}) — {cina} {valuta} x {kilk} {od} = {vartist1} {valuta}";
                     g.DrawString(lineText, bodyFont, Brushes.Black, leftMargin, yPos);
                     yPos += 25;
                 }
@@ -369,7 +459,7 @@ namespace SkladProject
             }
         }
 
-        // --- ЛОГІКА РОБОТИ З ТАБЛИЦЕЮ (ВАЛІДАЦІЯ, ПОМИЛКИ, КАЛЕНДАР) ---
+        // --- ЛОГІКА РОБОТИ З ТАБЛИЦЕЮ ---
 
         private void DgSklad_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
@@ -466,7 +556,6 @@ namespace SkladProject
 
             string colName = dgSklad.Columns[e.ColumnIndex].Name;
 
-            // Перерахунок вартості
             if (colName == "Cina" || colName == "Kilkist")
             {
                 DataGridViewRow row = dgSklad.Rows[e.RowIndex];
@@ -479,7 +568,6 @@ namespace SkladProject
                 row.Cells["Vartist"].Value = price * count;
             }
 
-            // Оновлення статистики
             if (colName == "Cina" || colName == "Kilkist" || colName == "Valuta" || colName == "Grupa" || colName == "Vartist")
             {
                 UpdateSums();

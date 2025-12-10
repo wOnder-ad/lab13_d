@@ -2,15 +2,8 @@
 {
     partial class Form1
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,13 +15,8 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miSave = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,6 +33,11 @@
             this.tsbSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbStats = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.lblSearchWhere = new System.Windows.Forms.ToolStripLabel();
+            this.tscbSearchField = new System.Windows.Forms.ToolStripComboBox();
+            this.lblSearchWhat = new System.Windows.Forms.ToolStripLabel();
+            this.tstbSearch = new System.Windows.Forms.ToolStripTextBox();
             this.splitMain = new System.Windows.Forms.SplitContainer();
             this.treeWarehouses = new System.Windows.Forms.TreeView();
             this.lblTreeTitle = new System.Windows.Forms.Label();
@@ -114,25 +107,25 @@
             // miSave
             // 
             this.miSave.Name = "miSave";
-            this.miSave.Size = new System.Drawing.Size(145, 22);
+            this.miSave.Size = new System.Drawing.Size(133, 22);
             this.miSave.Text = "Зберегти...";
             // 
             // miLoad
             // 
             this.miLoad.Name = "miLoad";
-            this.miLoad.Size = new System.Drawing.Size(145, 22);
+            this.miLoad.Size = new System.Drawing.Size(133, 22);
             this.miLoad.Text = "Відкрити...";
             // 
             // miPrint
             // 
             this.miPrint.Name = "miPrint";
-            this.miPrint.Size = new System.Drawing.Size(145, 22);
+            this.miPrint.Size = new System.Drawing.Size(133, 22);
             this.miPrint.Text = "Друк";
             // 
             // miExit
             // 
             this.miExit.Name = "miExit";
-            this.miExit.Size = new System.Drawing.Size(145, 22);
+            this.miExit.Size = new System.Drawing.Size(133, 22);
             this.miExit.Text = "Вихід";
             // 
             // editToolStripMenuItem
@@ -142,27 +135,27 @@
             this.miEditPost,
             this.miEditOd});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(138, 20);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(137, 20);
             this.editToolStripMenuItem.Text = "Редагувати довідники";
             // 
             // miEditGroups
             // 
             this.miEditGroups.Name = "miEditGroups";
-            this.miEditGroups.Size = new System.Drawing.Size(159, 22);
+            this.miEditGroups.Size = new System.Drawing.Size(160, 22);
             this.miEditGroups.Tag = "Grupa";
             this.miEditGroups.Text = "Групи";
             // 
             // miEditPost
             // 
             this.miEditPost.Name = "miEditPost";
-            this.miEditPost.Size = new System.Drawing.Size(159, 22);
+            this.miEditPost.Size = new System.Drawing.Size(160, 22);
             this.miEditPost.Tag = "Post";
             this.miEditPost.Text = "Постачальники";
             // 
             // miEditOd
             // 
             this.miEditOd.Name = "miEditOd";
-            this.miEditOd.Size = new System.Drawing.Size(159, 22);
+            this.miEditOd.Size = new System.Drawing.Size(160, 22);
             this.miEditOd.Tag = "Od";
             this.miEditOd.Text = "Од. виміру";
             // 
@@ -177,7 +170,7 @@
             // miStats
             // 
             this.miStats.Name = "miStats";
-            this.miStats.Size = new System.Drawing.Size(131, 22);
+            this.miStats.Size = new System.Drawing.Size(135, 22);
             this.miStats.Text = "Статистика";
             // 
             // toolStrip1
@@ -185,7 +178,12 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbSave,
             this.toolStripSeparator1,
-            this.tsbStats});
+            this.tsbStats,
+            this.toolStripSeparator2,
+            this.lblSearchWhere,
+            this.tscbSearchField,
+            this.lblSearchWhat,
+            this.tstbSearch});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1100, 25);
@@ -194,11 +192,10 @@
             // 
             // tsbSave
             // 
-            this.tsbSave.Image = ((System.Drawing.Image)(resources.GetObject("tsbSave.Image")));
             this.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSave.Name = "tsbSave";
-            this.tsbSave.Size = new System.Drawing.Size(77, 22);
-            this.tsbSave.Text = "Зберегти";
+            this.tsbSave.Size = new System.Drawing.Size(61, 22);
+            this.tsbSave.Text = "💾Зберегти";
             // 
             // toolStripSeparator1
             // 
@@ -207,11 +204,50 @@
             // 
             // tsbStats
             // 
-            this.tsbStats.Image = ((System.Drawing.Image)(resources.GetObject("tsbStats.Image")));
             this.tsbStats.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbStats.Name = "tsbStats";
-            this.tsbStats.Size = new System.Drawing.Size(84, 22);
-            this.tsbStats.Text = "Статистика";
+            this.tsbStats.Size = new System.Drawing.Size(72, 22);
+            this.tsbStats.Text = "📊Статистика";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // lblSearchWhere
+            // 
+            this.lblSearchWhere.Name = "lblSearchWhere";
+            this.lblSearchWhere.Size = new System.Drawing.Size(39, 22);
+            this.lblSearchWhere.Text = "🔍 Де:";
+            // 
+            // tscbSearchField
+            // 
+            this.tscbSearchField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tscbSearchField.Items.AddRange(new object[] {
+            "Всюди",
+            "Назва",
+            "Група",
+            "Виробник",
+            "Ціна",
+            "Кількість",
+            "Валюта"});
+            this.tscbSearchField.Name = "tscbSearchField";
+            this.tscbSearchField.Size = new System.Drawing.Size(80, 25);
+            // 
+            // lblSearchWhat
+            // 
+            this.lblSearchWhat.Name = "lblSearchWhat";
+            this.lblSearchWhat.Size = new System.Drawing.Size(29, 22);
+            this.lblSearchWhat.Text = "Що:";
+            // 
+            // tstbSearch
+            // 
+            this.tstbSearch.BackColor = System.Drawing.Color.White;
+            this.tstbSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tstbSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.tstbSearch.Name = "tstbSearch";
+            this.tstbSearch.Size = new System.Drawing.Size(120, 25);
+            this.tstbSearch.ToolTipText = "Введіть значення...";
             // 
             // splitMain
             // 
@@ -404,7 +440,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(640, 35);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 13);
+            this.label6.Size = new System.Drawing.Size(50, 13);
             this.label6.TabIndex = 5;
             this.label6.Text = "Од. вим.";
             // 
@@ -450,7 +486,7 @@
             this.label1.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
             this.label1.Location = new System.Drawing.Point(10, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(262, 16);
+            this.label1.Size = new System.Drawing.Size(260, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Введіть нові дані у таблицю \'Склад\'";
             // 
@@ -549,6 +585,11 @@
         private System.Windows.Forms.ToolStripButton tsbSave;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton tsbStats;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripLabel lblSearchWhere;
+        private System.Windows.Forms.ToolStripComboBox tscbSearchField;
+        private System.Windows.Forms.ToolStripLabel lblSearchWhat;
+        private System.Windows.Forms.ToolStripTextBox tstbSearch;
         private System.Windows.Forms.SplitContainer splitMain;
         private System.Windows.Forms.TreeView treeWarehouses;
         private System.Windows.Forms.Label lblTreeTitle;
